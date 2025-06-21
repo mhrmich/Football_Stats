@@ -1,0 +1,135 @@
+football_prediction/
+│
+├── README.md
+├── requirements.txt
+├── config/
+│   ├── __init__.py
+│   ├── scraping_config.py      # URLs, delays, retry settings
+│   ├── model_config.py         # Model hyperparameters
+│   └── database_config.py      # Database connection settings
+│
+├── data/
+│   ├── raw/                    # Raw scraped data (CSV/JSON)
+│   │   ├── leagues/
+│   │   │   ├── premier_league/
+│   │   │   │   ├── 2023-2024/
+│   │   │   │   │   ├── team_matchlogs/
+│   │   │   │   │   │   ├── manchester_city.csv
+│   │   │   │   │   │   ├── arsenal.csv
+│   │   │   │   │   │   └── ...
+│   │   │   │   │   ├── league_table.csv
+│   │   │   │   │   └── fixtures.csv
+│   │   │   │   ├── 2022-2023/
+│   │   │   │   └── 2021-2022/
+│   │   │   ├── la_liga/
+│   │   │   ├── bundesliga/
+│   │   │   └── serie_a/
+│   │   └── players/             # If collecting player data
+│   │       ├── premier_league/
+│   │       └── ...
+│   │
+│   ├── processed/              # Cleaned and processed data
+│   │   ├── match_features/
+│   │   │   ├── premier_league_2023_features.csv
+│   │   │   └── ...
+│   │   ├── training_data/
+│   │   │   ├── full_dataset.csv
+│   │   │   ├── train_split.csv
+│   │   │   ├── val_split.csv
+│   │   │   └── test_split.csv
+│   │   └── predictions/
+│   │       ├── model_predictions_2024.csv
+│   │       └── ...
+│   │
+│   ├── external/               # External data sources
+│   │   ├── betting_odds/
+│   │   ├── weather_data/
+│   │   └── transfer_data/
+│   │
+│   └── database/              # SQLite/PostgreSQL files
+│       ├── football_data.db
+│       └── backups/
+│
+├── src/
+│   ├── __init__.py
+│   ├── scrapers/
+│   │   ├── __init__.py
+│   │   ├── base_scraper.py     # Your existing base scraper
+│   │   ├── league_scraper.py   # Your existing league scraper
+│   │   ├── match_scraper.py    # Your existing match scraper
+│   │   ├── player_scraper.py   # Future player data scraper
+│   │   └── odds_scraper.py     # Future betting odds scraper
+│   │
+│   ├── data_processing/
+│   │   ├── __init__.py
+│   │   ├── data_saver.py
+│   │   ├── data_cleaner.py     # Clean raw scraped data
+│   │   ├── feature_engineer.py # Create ML features
+│   │   ├── data_validator.py   # Validate data quality
+│   │   └── match_matcher.py    # Match team records to create match-level data
+│   │
+│   ├── database/
+│   │   ├── __init__.py
+│   │   ├── models.py          # Database schema definitions
+│   │   ├── database_manager.py # Database operations
+│   │   └── migrations/        # Database schema changes
+│   │
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── base_model.py      # Abstract base model class
+│   │   ├── logistic_model.py  # Logistic regression
+│   │   ├── random_forest.py   # Random forest model
+│   │   ├── xgboost_model.py   # XGBoost model
+│   │   └── neural_network.py  # Deep learning models
+│   │
+│   ├── evaluation/
+│   │   ├── __init__.py
+│   │   ├── metrics.py         # Custom evaluation metrics
+│   │   ├── cross_validator.py # Time-series cross validation
+│   │   └── backtester.py      # Backtest trading strategies
+│   │
+│   └── utils/
+│       ├── __init__.py
+│       ├── logging_config.py  # Logging setup
+│       ├── data_utils.py      # Common data operations
+│       └── visualization.py   # Plotting and charts
+│
+├── scripts/
+│   ├── scrape_season.py       # Script to scrape entire season
+│   ├── process_data.py        # Process raw data into features
+│   ├── train_model.py         # Train ML models
+│   ├── make_predictions.py    # Generate predictions
+│   └── daily_update.py        # Daily data collection script
+│
+├── notebooks/
+│   ├── 01_data_exploration.ipynb
+│   ├── 02_feature_analysis.ipynb
+│   ├── 03_model_experiments.ipynb
+│   └── 04_results_analysis.ipynb
+│
+├── tests/
+│   ├── __init__.py
+│   ├── test_scrapers.py
+│   ├── test_data_processing.py
+│   ├── test_models.py
+│   └── fixtures/              # Test data
+│
+├── models/                    # Saved model files
+│   ├── current/
+│   │   ├── best_model.pkl
+│   │   ├── feature_scaler.pkl
+│   │   └── model_metadata.json
+│   ├── archive/
+│   └── experiments/
+│
+├── logs/
+│   ├── scraping.log
+│   ├── data_processing.log
+│   ├── model_training.log
+│   └── predictions.log
+│
+└── docs/
+    ├── api_documentation.md
+    ├── data_dictionary.md
+    ├── model_documentation.md
+    └── deployment_guide.md
