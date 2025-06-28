@@ -60,8 +60,7 @@ class DataCleaner:
             return df
 
         except Exception as e:
-            error_msg = f"Error cleaning {file_path}: {str(e)}"
-            self.cleaning_stats['errors'].append(error_msg)
+            error_msg = f"Error cleaning file: {str(e)}"
             print(error_msg)
             return pd.DataFrame()
 
@@ -198,6 +197,7 @@ class DataCleaner:
                             project_root,
                             'data',
                             'cleaned',
+                            'leagues',
                             league,
                             season
                         )
