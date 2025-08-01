@@ -1,0 +1,10 @@
+The first step of the pipeline was to scrape the data using the scrapers in the src/scrapers directory.
+This data was saved in the data/raw directory as a collection of folders which contain CSV files representing each teams'
+performance statistics from each season. The next step of this was to clean and process the data to make it ready for
+use in an ML algorithm.
+
+1. data_cleaner.py is used to clean the raw data by removing redundant/repetitive columns and transforming the data to
+    numeric values
+
+2. master_dataset_compiler.py is used to combine all the individual files, each representing a team's season, into a singular
+    large dataset that holds every match played in the time period. It calls upon match_compiler.py,

@@ -111,7 +111,7 @@ class MappingDiscoveryTool:
             "Brentford": "brentford",
             "Brescia": "brescia",
             "Brest": "brest",
-            "Brighton": "everton",
+            "Brighton": "brighton_and_hove_albion", # defaulted to everton, manually changed
             "Burnley": "burnley",
             "Caen": "caen",
             "Cagliari": "cagliari",
@@ -249,7 +249,7 @@ class MappingDiscoveryTool:
 
             "eng Arsenal": "arsenal",
             "eng Aston Villa": "aston_villa",
-            "eng Brighton": "everton",
+            "eng Brighton": "brighton_and_hove_albion", # defaulted to everton, manually changed
             "eng Chelsea": "chelsea",
             "eng Everton": "everton",
             "eng Leicester City": "leicester_city",
