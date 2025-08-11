@@ -7,4 +7,12 @@ use in an ML algorithm.
     numeric values
 
 2. master_dataset_compiler.py is used to combine all the individual files, each representing a team's season, into a singular
-    large dataset that holds every match played in the time period. It calls upon match_compiler.py,
+    large dataset that holds every match played in the time period. It calls upon match_compiler.py and team_name_mapping_tool.py,
+    which are used to combine both sides of a match into a single DataFrame row by matching team and opponent names and
+    creating a unique match id for each.
+
+3. feature_enginner.py is used to create relevant rolling features that represent teams' form leading up to matches.
+    It works by creating a set of unique team names that it iterates across, isolating each teams' matches from the master
+    dataset to create metrics of a team's performance over the prior 3, 5, and 10 matches. It then also removes all other
+    non-relevant features that could not be used for match prediction (primarily the statistics of the actual match itself)
+    to create a comprehensive final dataset

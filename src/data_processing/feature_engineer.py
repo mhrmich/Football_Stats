@@ -5,6 +5,8 @@ import pandas as pd
 import numpy as np
 import logging
 
+from pandas.core.interchange import column
+
 logger = logging.getLogger(__name__)
 
 class MasterFeatureEngineer:
@@ -79,6 +81,9 @@ class MasterFeatureEngineer:
         #Step 3: Remove non-rolling features
         df = self._remove_not_rolling_features(df)
 
+
+        #Step 5: Since we are building a model to predict matches based on historical form data, we remove
+        # the first few matches, in which there is no form data
         df = self._filter_by_match_experience(df, 5)
 
         print(df.head())
@@ -358,8 +363,10 @@ class MasterFeatureEngineer:
 
 
         essential_columns = [
-            'match_id', 'date', 'competition', 'home_team', 'away_team', 'home_goals', 'away_goals', 'match_result',
-            'league', 'season'
+
+            # date, competition, and team name are excluded for now; might re-implement later
+            #'competition', 'home_team', 'away_team',
+            'date', 'home_goals', 'away_goals', 'match_result',
         ]
 
         rolling_patters = ['_L3', '_L5', '_L10', '_total_matches', '_overall_ppg', '_overall_goal_ratio']
@@ -381,7 +388,7 @@ class MasterFeatureEngineer:
 
     def _filter_by_match_experience(self, df, min_matches = 5):
         """
-        Step 4 of the preprocessing/feature engineering pipeline, we remove the earliest matches which do not have
+        Step 5 of the preprocessing/feature engineering pipeline, we remove the earliest matches which do not have
         adequate rolling data.
         :param df: DataFrame containing all match data
         :param min_matches: minimum number of matches that both teams must have played to keep the row (default is 5)
@@ -397,15 +404,18 @@ class MasterFeatureEngineer:
 
 def main():
 
-
+    pd.set_option('display.max_rows', None)
     engineer = MasterFeatureEngineer()
-    #df = engineer.engineer_all_features(engineer.processed_data_path)
-    #df.to_csv(engineer.final_data_path)
+    df = engineer.engineer_all_features(engineer.processed_data_path)
+    df.to_csv(engineer.final_data_path)
+
 
 
     test_df = pd.read_csv(engineer.final_data_path)
     test_df = test_df[test_df['date'] < '2019-01-01']
     test_df.to_csv('test.csv')
+    print(test_df.dtypes)
+
 
 
 if __name__ == '__main__':
