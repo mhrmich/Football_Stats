@@ -39,11 +39,11 @@ class MasterFeatureEngineer:
             # Passing stats, goal and shot creation
             'Total_Cmp', 'Total_Att', 'Total_Cmp%', 'Total_TotDist', 'Total_PrgDist', 'Short_Cmp', 'Short_Att',
             'Short_Cmp%', 'Medium_Cmp', 'Medium_Att', 'Medium_Cmp%', 'Long_Cmp', 'Long_Att', 'Long_Cmp%', 'xAG', 'xA',
-            'KP', '1/3', 'PPA', 'CrsPA', 'PrgP', 'SCA Types_SCA', 'GCA',
+            'KP', '1/3', 'PPA', 'CrsPA', 'PrgP', 'SCA Types_SCA', 'GCA Types_GCA',
 
             # Defensive actions
-            'Tckles_Tkl', 'Tackles_TklW', 'Tackles_Def 3rd', 'Tackles_Mid 3rd', 'Challenges_Tkl', 'Challenges_Att',
-            'Blocks_ Blocks', 'Int', 'Clr',
+            'Tackles_Tkl', 'Tackles_TklW', 'Tackles_Def 3rd', 'Tackles_Mid 3rd', 'Challenges_Tkl', 'Challenges_Att',
+            'Blocks_Blocks', 'Int', 'Clr',
 
             # Possession
             'Poss', 'Touches_Def Pen', 'Touches_Def 3rd', 'Touches_Mid 3rd', 'Touches_Att 3rd', 'Touches_Att Pen',
@@ -51,7 +51,7 @@ class MasterFeatureEngineer:
             'Carries_PrgDist', 'Carries_PrgC',
 
             # Miscellaneous
-            'CrdY', 'CrdR', 'Fls',
+            'Performance_CrdY', 'Performance_CrdR', 'Performance_Fls',
         ]
 
         self.rolling_windows = [3, 5, 10]
@@ -90,6 +90,7 @@ class MasterFeatureEngineer:
 
         return df
 
+    # ------------------------- Helpers -------------------------
     def _prepare_data(self, df: pd.DataFrame) -> pd.DataFrame:
         """
         The first step of feature engineering, so far this only transforms datetime data type and sorts rows
@@ -327,8 +328,6 @@ class MasterFeatureEngineer:
             return 0
         points = matches['result'].apply(lambda x: 3 if x==1 else (1 if x==0 else 0)) # 3 for win, 1 for draw, 0 for loss
         return points.mean()
-
-
 
 
     def _get_empty_rolling_features(self, prefix):

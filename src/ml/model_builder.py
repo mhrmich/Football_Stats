@@ -11,6 +11,19 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier, HistGradientBoostingClassifier
 from xgboost import XGBClassifier
 
+try: 
+    from xgboost import XGBClassifier
+    HAS_XGB = True
+except Exception:
+    HAS_XGB = False
+
+try:
+    from lightgbm import LGBMClassifier
+    HAS_LGBM = True
+except Exception:
+    HAS_LGBM = False
+
+
 
 class FootballMatchPredictor:
     """
@@ -96,8 +109,9 @@ class FootballMatchPredictor:
         y_test = data_dict['y_test']
 
         # Model 1: Random Forest Classifier
-        hgb = self.train_histgb(X_train, y_train)
-        y_pred = hgb.predict(X_test)
+        #model = self.train_histgb(X_train, y_train)
+        model = self.train_random_forest(X_train, y_train)
+        y_pred = model.predict(X_test)
         score = accuracy_score(y_test, y_pred)
         print(f"Score: {score}")
         cm = confusion_matrix(y_test, y_pred)
